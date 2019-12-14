@@ -10,8 +10,8 @@ from __future__ import unicode_literals
 
 import django
 from django.core import exceptions
-from django.utils import six
-from django.utils.encoding import python_2_unicode_compatible
+import six
+from six import python_2_unicode_compatible
 
 from tagulous.utils import parse_tags, render_tags
 
