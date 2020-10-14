@@ -8,6 +8,7 @@ from __future__ import unicode_literals
 import copy
 
 import django
+from django.core.exceptions import FieldDoesNotExist
 from django.db import models
 from django.db import transaction
 import six
@@ -52,7 +53,7 @@ def _split_kwargs(model, kwargs, lookups=False, with_fields=False):
             if lookup == 'exact':
                 try:
                     field = model._meta.get_field(field_name)
-                except models.fields.FieldDoesNotExist:
+                except FieldDoesNotExist:
                     # Unknown - pass it on untouched
                     pass
                 else:
@@ -70,7 +71,7 @@ def _split_kwargs(model, kwargs, lookups=False, with_fields=False):
         # Try to look up the field
         try:
             field = model._meta.get_field(field_name)
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             # Assume it's something clever and pass it through untouched
             # If it's invalid, an error will be raised later anyway
             safe_fields[field_name] = val
